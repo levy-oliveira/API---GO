@@ -13,13 +13,14 @@ type User struct{
 	Id			int 	`json:"id"`
 }
 
-//Criação da lista de usuários
+//Criação da lista de usuários do tipo User
 var users []*User
 
 //Função que irá retornar no formato JSON todas as tuplas de usuários cadastrados
 func GetAllUser(c *fiber.Ctx) error{
 	return c.JSON(users)
 }
+
 //Função que irá retornar no formato JSON todas a tupla do usuário com base no id do mesmo
 func GetUserById(c *fiber.Ctx) error{
 	id, _ := c.ParamsInt("id")
@@ -30,15 +31,11 @@ func GetUserById(c *fiber.Ctx) error{
             userFound = *user
         }
     }
-
 	return c.JSON(userFound)
 }
 
 //Função que envia os dados de adição de um novo usuário, cadastro
 func PostUser(c *fiber.Ctx) error{
-	type Request struct{
-
-	}
 	var newUser User
 	if err:= c.BodyParser(&newUser); err != nil{
 		return c.Status(500).SendString(err.Error())
